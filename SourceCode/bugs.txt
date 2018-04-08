@@ -1,0 +1,2 @@
+﻿1. Sau khi vào đổi password, phải enter 2 lần mới logout được.
+2. Sau khi vào đổi password, vào lại các lần sau con trỏ không nhảy đến Current, phải nhấn Enter mới nhảy.
