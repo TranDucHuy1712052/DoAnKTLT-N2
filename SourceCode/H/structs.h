@@ -6,6 +6,7 @@
 
 #define ERROR_WRONG_OLD_PASSWORD -69
 #define ERROR_WRONG_RETYPE -96
+#define ERROR_INVALID_CHARACTER -66
 
 enum {
 	student, academicStaff, lecturer
