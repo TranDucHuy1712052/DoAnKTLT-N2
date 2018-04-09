@@ -12,6 +12,7 @@ void passwordMenu()
 int checkPassword(char oldPassword[], char newPassword[], char retype[], User a)
 {
 	if (strcmp(oldPassword, a.password)) return ERROR_WRONG_OLD_PASSWORD;
+	if (strstr(newPassword, " ")) return ERROR_INVALID_CHARACTER;
 	if (strcmp(newPassword, retype)) return ERROR_WRONG_RETYPE;
 	return 1;
 }
@@ -52,20 +53,15 @@ void Password(User &a)
 	passwordMenu();
 
 	while (getchar() != '\n');
+	
 	gotoxy(13, 1);
 	gets_s(oldPassword, 49);
-	/*fgets(oldPassword, 49, stdin);
-	oldPassword[strlen(oldPassword) - 1] = '\0';*/
 
 	gotoxy(13, 2);
 	gets_s(newPassword, 49);
-	/*fgets(newPassword, 49, stdin);
-	newPassword[strlen(newPassword) - 1] = '\0';*/
 
 	gotoxy(13, 3);
-	gets_s(retype, 49);
-	/*fgets(retype, 49, stdin);
-	retype[strlen(retype) - 1] = '\0';*/
+	scanf("%s", retype);
 
 	int check = checkPassword(oldPassword, newPassword, retype, a);
 	switch (check) {
@@ -74,7 +70,8 @@ void Password(User &a)
 		printf("Doi mat khau thanh cong\n");
 		break;
 	case ERROR_WRONG_OLD_PASSWORD: printf("Mat khau cu khong dung\n"); break;
-	case ERROR_WRONG_RETYPE: printf("Nhap lai mat khau moi khong dung\n");
+	case ERROR_WRONG_RETYPE: printf("Nhap lai mat khau moi khong dung\n"); break;
+	case ERROR_INVALID_CHARACTER: printf("Mat khau moi co ky tu khong hop le\n");
 	}
 
 	_getch();
