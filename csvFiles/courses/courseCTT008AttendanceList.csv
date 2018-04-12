@@ -1,5 +1,5 @@
-id,full name,email,mobile phone,class,status
-1712001,Nguyen Van A,nva@gmail.com,01234567801,17CTT1,1
-1712002,Nguyen Van B,nvb@gmail.com,01234567802,17CTT1,1
-1712003,Nguyen Van C,nvc@gmail.com,01234567803,17CTT2,1
-1712004,Phan Van D,pvd@gmail.com,01234567804,17CLC1,1
+id,full name,email,mobile phone,class
+1712001,Nguyen Van A,nva@gmail.com,01234567801,17CTT1
+1712002,Nguyen Van B,nvb@gmail.com,01234567802,17CTT1
+1712003,Nguyen Van C,nvc@gmail.com,01234567803,17CTT2
+1712004,Phan Van D,pvd@gmail.com,01234567804,17CLC1
