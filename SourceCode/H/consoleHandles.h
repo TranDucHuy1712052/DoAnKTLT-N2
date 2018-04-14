@@ -36,4 +36,3 @@ void resizeConsole(int width, int height);
 void textcolor(int x);
 void gotoxy(int x, int y);
 int selectionMove(coordinates begin, int up, int down, int distance);
-void goBackwards(coordinates cur, int leftmost);

@@ -19,8 +19,7 @@ void hidePassword(char password[], int leftmost, int curRow)
 		}
 		
 		else if (tmp == BACKSPACE) {
-			coordinates cur = { leftmost + strlen(password),curRow };
-			goBackwards(cur, leftmost);
+			if (strlen(password) > 0) printf("\b \b");
 			if (length > 0) password[length - 1] = '\0';
 		}
 		
