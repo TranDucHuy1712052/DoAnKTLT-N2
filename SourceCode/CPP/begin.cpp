@@ -16,9 +16,10 @@ bool begin()
 {
 	beginMenu();
 	coordinates begin = { 0,1 };
-	int choice = selectionMove(begin, 1, 2);
+	int choice = selectionMove(begin, 1, 2, 1);
 	switch (choice) {
 	case 1: return TRUE; break;
 	case 2: return FALSE;
 	}
+	while (getchar() != '\n');
 }

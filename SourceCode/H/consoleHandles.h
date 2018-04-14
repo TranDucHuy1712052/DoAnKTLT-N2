@@ -11,6 +11,7 @@
 #define RIGHT 77
 #define SPACE 32
 #define ENTER 13
+#define BACKSPACE 8
 
 #define Black			0
 #define DarkBlue		1
@@ -34,4 +35,5 @@
 void resizeConsole(int width, int height);
 void textcolor(int x);
 void gotoxy(int x, int y);
-int selectionMove(coordinates begin, int up, int down);
+int selectionMove(coordinates begin, int up, int down, int distance);
+void goBackwards(coordinates cur, int leftmost);

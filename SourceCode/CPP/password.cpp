@@ -1,5 +1,37 @@
 ﻿#include "password.h"
 
+//Ẩn password khi gõ, lưu pass vào password
+void hidePassword(char password[], int leftmost, int curRow)
+{
+	int length;
+	char tmp;
+	
+	strcpy(password, "");
+	
+	while (1) {
+		tmp = _getch();
+
+		length = strlen(password);
+
+		if (tmp == ENTER) {
+			putchar('\n');
+			break;
+		}
+		
+		else if (tmp == BACKSPACE) {
+			coordinates cur = { leftmost + strlen(password),curRow };
+			goBackwards(cur, leftmost);
+			if (length > 0) password[length - 1] = '\0';
+		}
+		
+		else {
+			printf("*");
+			strcat(password, " ");
+			password[length] = tmp;
+		}
+	}
+}
+
 void passwordMenu()
 {
 	printf("\tChange password\n");
@@ -51,17 +83,15 @@ void Password(User &a)
 	system("cls");
 
 	passwordMenu();
-
-	while (getchar() != '\n');
 	
 	gotoxy(13, 1);
-	gets_s(oldPassword, 49);
+	hidePassword(oldPassword, 13, 1);
 
 	gotoxy(13, 2);
-	gets_s(newPassword, 49);
+	hidePassword(newPassword, 13, 2);
 
 	gotoxy(13, 3);
-	scanf("%s", retype);
+	hidePassword(retype, 13, 3);
 
 	int check = checkPassword(oldPassword, newPassword, retype, a);
 	switch (check) {
@@ -74,5 +104,5 @@ void Password(User &a)
 	case ERROR_INVALID_CHARACTER: printf("Mat khau moi co ky tu khong hop le\n");
 	}
 
-	_getch();
+	while (getchar() != '\n');
 }
