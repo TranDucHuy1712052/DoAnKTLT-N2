@@ -61,9 +61,5 @@ int selectionMove(coordinates begin, int up, int down, int distance)
 //Khi viết mật khẩu ẩn, bấm backspace nó sẽ xóa dấu *, leftmost để chặn lại không cho nó lùi quá giới hạn
 void goBackwards(coordinates cur, int leftmost)
 {
-	if (cur.x > leftmost) {
-		gotoxy(cur.x - 1, cur.y);
-		printf(" ");
-		gotoxy(cur.x - 1, cur.y);
-	}
+	if (cur.x > leftmost) printf("\b \b");
 }
