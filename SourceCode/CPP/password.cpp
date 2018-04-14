@@ -19,8 +19,10 @@ void hidePassword(char password[], int leftmost, int curRow)
 		}
 		
 		else if (tmp == BACKSPACE) {
-			if (strlen(password) > 0) printf("\b \b");
-			if (length > 0) password[length - 1] = '\0';
+			if (length > 0) {
+				password[length - 1] = '\0';
+				printf("\b \b");
+			}
 		}
 		
 		else {
