@@ -41,7 +41,7 @@ bool login(User &a)
 	gets_s(id, 19);
 
 	gotoxy(10, 2);
-	scanf("%s", password);
+	hidePassword(password, 10, 2);
 
 	if (findUser(a, id, password)) {
 		return true;

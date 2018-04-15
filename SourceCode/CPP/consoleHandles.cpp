@@ -26,8 +26,8 @@ void gotoxy(int x, int y)
 	SetConsoleCursorPosition(hConsoleOutput, Cursor_an_Pos);
 }
 
-//Di chuyển bằng phím lên xuống để lựa chọn, giới hạn dòng up xuống down, enter để chọn
-int selectionMove(coordinates begin, int up, int down)
+//Di chuyển bằng phím lên xuống để lựa chọn, giới hạn dòng up xuống down, enter để chọn, lên xuống khoảng cách distance
+int selectionMove(coordinates begin, int up, int down, int distance)
 {
 	gotoxy(begin.x, begin.y);
 	while (1) {
@@ -35,22 +35,24 @@ int selectionMove(coordinates begin, int up, int down)
 		switch (got) {
 		case UP:
 			if (begin.y>up) {
-				begin.y--;
+				begin.y -= distance;
 				gotoxy(begin.x, begin.y);
 			}
 			else {
 				begin.y = down;
 				gotoxy(begin.x, begin.y);
 			}break;
+		
 		case DOWN:
 			if (begin.y<down) {
-				begin.y++;
+				begin.y += distance;
 				gotoxy(begin.x, begin.y);
 			}
 			else {
 				begin.y = up;
 				gotoxy(begin.x, begin.y);
 			}break;
+		
 		case ENTER: return begin.y;
 		}
 	}

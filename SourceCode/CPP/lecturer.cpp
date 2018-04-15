@@ -20,7 +20,7 @@ void Lecturer(User a)
 		lecturerMenu();
 
 		coordinates begin = { 0,1 };
-		int choice = selectionMove(begin, 1, 4);
+		int choice = selectionMove(begin, 1, 4, 1);
 		switch (choice) {
 		case 1: tmpPrint(); break;
 		case 2: tmpPrint(); break;

@@ -25,7 +25,7 @@ void students()
 		studentsMenu();
 
 		coordinates begin = { 0,1 };
-		int choice = selectionMove(begin, 1, 9);
+		int choice = selectionMove(begin, 1, 9, 1);
 		switch (choice) {
 		case 1: tmpPrint(); break;
 		case 2: tmpPrint(); break;
@@ -62,7 +62,7 @@ void courses()
 		coursesMenu();
 
 		coordinates begin = { 0,1 };
-		int choice = selectionMove(begin, 1, 6);
+		int choice = selectionMove(begin, 1, 6, 1);
 		switch (choice) {
 		case 1: tmpPrint(); break;
 		case 2: tmpPrint(); break;
@@ -96,7 +96,7 @@ void courseSchedule()
 		courseScheduleMenu();
 
 		coordinates begin = { 0,1 };
-		int choice = selectionMove(begin, 1, 6);
+		int choice = selectionMove(begin, 1, 6, 1);
 		switch (choice) {
 		case 1: tmpPrint(); break;
 		case 2: tmpPrint(); break;
@@ -127,7 +127,7 @@ void attendanceList()
 		attendanceListMenu();
 
 		coordinates begin = { 0,1 };
-		int choice = selectionMove(begin, 1, 3);
+		int choice = selectionMove(begin, 1, 3, 1);
 		switch (choice) {
 		case 1: tmpPrint(); break;
 		case 2: tmpPrint(); break;
@@ -155,7 +155,7 @@ void scoreboard()
 		scoreboardMenu();
 
 		coordinates begin = { 0,1 };
-		int choice = selectionMove(begin, 1, 3);
+		int choice = selectionMove(begin, 1, 3, 1);
 		switch (choice) {
 		case 1: tmpPrint(); break;
 		case 2: tmpPrint(); break;
@@ -186,7 +186,7 @@ void AcademicStaff(User a)
 		academicStaffMenu();
 
 		coordinates begin = { 0,1 };
-		int choice = selectionMove(begin, 1, 6);
+		int choice = selectionMove(begin, 1, 6, 1);
 		switch (choice) {
 		case 1: students(); break;
 		case 2: courses(); break;

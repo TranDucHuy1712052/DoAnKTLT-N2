@@ -50,6 +50,7 @@ void showInfo(User a)
 
 	if (strcmp(a.Class, "0")) printf("6. Lop: %s\n", a.Class);
 	printf("Nhan phim bat ky de quay lai.\n");
+	
 	_getch();
 }
 
@@ -59,7 +60,7 @@ void roles(User a)
 		rolesMenu(a);
 
 		coordinates begin = { 0,1 };
-		int choice = selectionMove(begin, 1, 4);
+		int choice = selectionMove(begin, 1, 4, 1);
 
 		switch (choice) {
 		case 1: menu(a); break;
