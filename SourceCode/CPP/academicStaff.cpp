@@ -21,6 +21,11 @@ void studentsMenu()
 
 void students()
 {
+	classes list;
+	vector <_class> classes;
+
+	inputListofClasses(list, classes);
+
 	while (1) {
 		studentsMenu();
 
@@ -33,8 +38,8 @@ void students()
 		case 4: tmpPrint(); break;
 		case 5: tmpPrint(); break;
 		case 6: tmpPrint(); break;
-		case 7: tmpPrint(); break;
-		case 8: tmpPrint(); break;
+		case 7: viewListClasses(list); break;
+		case 8: viewListStudentsInaClass(list, classes); break;
 		case 9: return;
 		}
 	}
