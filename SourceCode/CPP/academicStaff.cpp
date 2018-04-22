@@ -41,10 +41,10 @@ void students(UserList &userList)
 		case 3: tmpPrint(); break;
 		case 4: tmpPrint(); break;
 		case 5: tmpPrint(); break;
-		case 6: addNewEmptyClass(list, classes); break;
+		case 6: addNewEmptyClass(list, classes, studentList, userList); break;
 		case 7: viewListClasses(list); break;
 		case 8: viewListStudentsInaClass(list, classes); break;
-		case 9: ReturnLists(list, classes, studentList); return;
+		case 9: return;
 		}
 	}
 }

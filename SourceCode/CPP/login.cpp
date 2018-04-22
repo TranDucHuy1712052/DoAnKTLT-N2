@@ -67,8 +67,6 @@ void ReadUsers(UserList &list)
 
 		fclose(f);
 	}
-
-	remove("users.csv");
 }
 
 void ReturnUsers(UserList list)

@@ -79,6 +79,7 @@ void Password(User &a, UserList &list)
 	switch (check) {
 	case 1:
 		changePassword(a, list, newPassword);
+		ReturnUsers(list);
 		printf("Doi mat khau thanh cong.\n");
 		break;
 	case ERROR_WRONG_OLD_PASSWORD: printf("Mat khau cu khong dung.\n"); break;

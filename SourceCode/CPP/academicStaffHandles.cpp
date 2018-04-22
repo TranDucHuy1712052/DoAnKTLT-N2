@@ -46,9 +46,7 @@ void inputStudent(ListOfstudentCourses &studentList, char id[10])
 
 		fclose(f);
 	}
-
-	remove(idFile);
-
+	
 	delete[]idFile;
 }
 
@@ -93,9 +91,6 @@ void inputClass(vector <_class> &classes, ListOfstudentCourses &studentList, cla
 
 		fclose(f);
 
-		//Xóa file
-		remove(className);
-
 		classes.push_back(classe);
 	}
 	
@@ -125,15 +120,13 @@ void inputListofClasses(classes &list, vector <_class> &classes, ListOfstudentCo
 		list.size = list.clas.size();
 
 		fclose(f);
-
-		//Xóa file
-		remove("classes.csv");
 	}
 }
 
 //Ghi lại các file đã xóa
-void ReturnLists(classes list, vector <_class> classes, ListOfstudentCourses studentList)
+void ReturnLists(classes list, vector <_class> classes, ListOfstudentCourses studentList, UserList users)
 {
+	ReturnUsers(users);
 	//Ghi lại file classes.csv
 	FILE *f = fopen("classes.csv", "w");
 
@@ -196,7 +189,7 @@ void viewListClasses(classes list)
 	system("cls");
 	printf("List of classes:\n");
 	for (int i = 0; i < list.size; i++) printf("%s\n", list.clas[i].className);
-	printf("Nhan phim bat ky de quay lai.\n");
+	printf("Nhan ENTER de quay lai.\n");
 	_getch();
 }
 
@@ -224,7 +217,7 @@ void viewListStudentsInaClass(classes list, vector <_class> classes)
 		printf("List of students in choosen class:\n");
 		for (int i = 0; i < classes[nth].sizeOfStudent; i++) printf("%s - %s\n", classes[nth].student[i].id, classes[nth].student[i].fullname);
 	}
-	printf("Nhan phim bat ky de quay lai.\n");
+	printf("Nhan ENTER de quay lai.\n");
 
 	_getch();
 }
@@ -241,7 +234,13 @@ void addNewEmptyClassMenu()
 	printf("2. Back\n");
 }
 
-void addClass(classes &list, vector <_class> &classes)
+bool classExisted(classs newClassName, classes &list)
+{
+	for (int i = 0; i < list.size; i++) if (!strcmp(newClassName.className, list.clas[i].className)) return true;
+	return false;
+}
+
+void addClass(classes &list, vector <_class> &classes, ListOfstudentCourses studentList, UserList users)
 {
 	_class newClass;
 
@@ -255,17 +254,21 @@ void addClass(classes &list, vector <_class> &classes)
 
 	printf("Nhap ten lop can them: ");
 	scanf("%s", newClassName.className);
-	
-	list.clas.push_back(newClassName);
-	list.size++;
 
-	printf("Done.\n");
+	if (classExisted(newClassName, list)) printf("Lop da ton tai.\nNhan ENTER de quay lai.\n");
+	else {
+		list.clas.push_back(newClassName);
+		list.size++;
+
+		ReturnLists(list, classes, studentList, users);
+		printf("Done.\n");
+	}
 	
 	_getch();
 	while (getchar() != '\n');
 }
 
-void addNewEmptyClass(classes &list, vector <_class> &classes)
+void addNewEmptyClass(classes &list, vector <_class> &classes, ListOfstudentCourses studentList, UserList users)
 {
 	while (1) {
 		addNewEmptyClassMenu();
@@ -273,7 +276,7 @@ void addNewEmptyClass(classes &list, vector <_class> &classes)
 		coordinates begin = { 0,1 };
 		int choice = selectionMove(begin, 1, 2, 1);
 		switch (choice) {
-		case 1: addClass(list, classes); break;
+		case 1: addClass(list, classes, studentList, users); break;
 		case 2: return;
 		}
 	}
@@ -374,6 +377,7 @@ void importStudents(UserList &userList, ListOfstudentCourses &studentList, vecto
 			}
 
 			fclose(f);
+			ReturnLists(list, classess, studentList, userList);
 			printf("Done.\n");
 		}
 	}

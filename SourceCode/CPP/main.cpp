@@ -28,9 +28,6 @@ int main()
 			roles(user, list);
 			break;
 		}
-
-		//Ghi lại file users.csv
-		ReturnUsers(list);
 	}
 	
 	return 0;
