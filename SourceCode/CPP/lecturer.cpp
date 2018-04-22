@@ -14,7 +14,7 @@ void lecturerMenu()
 	printf("4. Back\n");
 }
 
-void Lecturer(User a)
+void Lecturer(User a, UserList &list)
 {
 	while (1) {
 		lecturerMenu();

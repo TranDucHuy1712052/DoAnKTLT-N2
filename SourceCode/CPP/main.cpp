@@ -11,21 +11,26 @@ int main()
 	while (1) {
 		system("cls");
 		User user;
+		UserList list;
 
 		//Màn hình bắt đầu
 		if (begin() == FALSE) return 0;
 
 		//Đăng nhập
+		ReadUsers(list);
+		
 		while (1) {
-			if (login(user)) break;
+			if (login(user, list)) break;
 		}
 
 		//Lựa chọn các chức năng
 		while (1) {
-			roles(user);
+			roles(user, list);
 			break;
 		}
 
+		//Ghi lại file users.csv
+		ReturnUsers(list);
 	}
 	
 	return 0;

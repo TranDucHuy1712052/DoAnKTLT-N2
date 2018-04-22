@@ -1,4 +1,4 @@
-#include "academicStaff.h"
+﻿#include "academicStaff.h"
 
 void studentsMenu()
 {
@@ -19,23 +19,32 @@ void studentsMenu()
 	printf("9. Back\n");
 }
 
-void students()
+void students(UserList &userList)
 {
+	//list là danh sách các lớp
+	classes list;
+	//classes là mảng chứa từng lớp
+	vector <_class> classes;
+	//studentList là danh sách tất cả sinh viên, mấy file id.csv chứa courses
+	ListOfstudentCourses studentList;
+
+	inputListofClasses(list, classes, studentList);
+
 	while (1) {
 		studentsMenu();
 
 		coordinates begin = { 0,1 };
 		int choice = selectionMove(begin, 1, 9, 1);
 		switch (choice) {
-		case 1: tmpPrint(); break;
+		case 1: importStudentsFromCsvFile(userList, studentList, classes, list); break;
 		case 2: tmpPrint(); break;
 		case 3: tmpPrint(); break;
 		case 4: tmpPrint(); break;
 		case 5: tmpPrint(); break;
-		case 6: tmpPrint(); break;
-		case 7: tmpPrint(); break;
-		case 8: tmpPrint(); break;
-		case 9: return;
+		case 6: addNewEmptyClass(list, classes); break;
+		case 7: viewListClasses(list); break;
+		case 8: viewListStudentsInaClass(list, classes); break;
+		case 9: ReturnLists(list, classes, studentList); return;
 		}
 	}
 }
@@ -180,7 +189,7 @@ void academicStaffMenu()
 	printf("6. Back\n");
 }
 
-void AcademicStaff(User a)
+void AcademicStaff(User a, UserList &list)
 {
 	while (1) {
 		academicStaffMenu();
@@ -188,7 +197,7 @@ void AcademicStaff(User a)
 		coordinates begin = { 0,1 };
 		int choice = selectionMove(begin, 1, 6, 1);
 		switch (choice) {
-		case 1: students(); break;
+		case 1: students(list); break;
 		case 2: courses(); break;
 		case 3: courseSchedule(); break;
 		case 4: attendanceList(); break;

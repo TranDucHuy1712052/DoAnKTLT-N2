@@ -13,25 +13,18 @@ void menuLogin()
 }
 
 //Tìm xem có user không, password đúng không
-bool findUser(User &a, char id[], char password[])
+bool findUser(User &a, UserList list, char id[], char password[])
 {
-	char tmp[100];
-	FILE *f = fopen("users.csv", "r");
-	fgets(tmp, 99, f);
-	
-	int got = 7;
-	while (got == 7) {
-		got = fscanf(f, "%[^,],%[^,],%[^,],%[^,],%d,%[^,],%[^\n]\n", a.username, a.fullname, a.email, a.mobilephone, &a.type, a.password, a.Class);
-		if (!strcmp(a.username, id) && !strcmp(a.password, password)) got = -2;
-	}
+	for (int i = 0; i < list.size; i++)
+		if (!strcmp(list.user[i].username, id) && !strcmp(list.user[i].password, password)) {
+			a = list.user[i];
+			return true;
+		}
 
-	fclose(f);
-
-	if (got == -2) return true;
 	return false;
 }
 
-bool login(User &a)
+bool login(User &a, UserList list)
 {
 	char id[20], password[50];
 	
@@ -43,12 +36,49 @@ bool login(User &a)
 	gotoxy(10, 2);
 	hidePassword(password, 10, 2);
 
-	if (findUser(a, id, password)) {
+	if (findUser(a, list, id, password)) {
 		return true;
 	}
 	else {
-		printf("Ten dang nhap hoac mat khau khong dung, nhan phim bat ky de dang nhap lai.\n");
+		printf("Ten dang nhap hoac mat khau khong dung, nhan ENTER de dang nhap lai.\n");
 		_getch();
 		return false;
 	}
+}
+
+//Đọc tất cả user vào list
+void ReadUsers(UserList &list)
+{
+	char tmp[100];
+	User a;
+
+	FILE *f = fopen("users.csv", "r");
+	if (f == NULL) printf("Error: cannot open file.\n");
+	else {
+		fgets(tmp, 99, f);
+
+		int got = fscanf(f, "%[^,],%[^,],%[^,],%[^,],%d,%[^,],%[^\n]\n", a.username, a.fullname, a.email, a.mobilephone, &a.type, a.password, a.Class);
+		while (got == 7) {
+			list.user.push_back(a);
+			got = fscanf(f, "%[^,],%[^,],%[^,],%[^,],%d,%[^,],%[^\n]\n", a.username, a.fullname, a.email, a.mobilephone, &a.type, a.password, a.Class);
+		}
+
+		list.size = list.user.size();
+
+		fclose(f);
+	}
+
+	remove("users.csv");
+}
+
+void ReturnUsers(UserList list)
+{
+	FILE *f = fopen("users.csv", "w");
+	
+	fprintf(f, "username,full name,email,mobile phone,type,password,class\n");
+
+	for (int i = 0; i < list.size; i++)
+		fprintf(f, "%s,%s,%s,%s,%d,%s,%s\n", list.user[i].username, list.user[i].fullname, list.user[i].email, list.user[i].mobilephone, list.user[i].type, list.user[i].password, list.user[i].Class);
+
+	fclose(f);
 }

@@ -2,4 +2,4 @@
 #include "structs.h"
 #include "consoleHandles.h"
 
-void roles(User a);
+void roles(User a, UserList &list);

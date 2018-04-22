@@ -3,4 +3,6 @@
 #include "consoleHandles.h"
 #include "password.h"
 
-bool login(User &a);
+bool login(User &a, UserList list);
+void ReadUsers(UserList &list);
+void ReturnUsers(UserList list);

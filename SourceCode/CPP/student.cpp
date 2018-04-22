@@ -16,7 +16,7 @@ void studentMenu()
 	printf("5. Back\n");
 }
 
-void Student(User a)
+void Student(User a, UserList &list)
 {
 	while (1) {
 		studentMenu();

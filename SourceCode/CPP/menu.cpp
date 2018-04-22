@@ -1,11 +1,11 @@
 #include "menu.h"
 
-void menu(User a)
+void menu(User a, UserList &list)
 {
 	switch (a.type) {
-	case student: Student(a); break;
-	case academicStaff: AcademicStaff(a); break;
-	case lecturer: Lecturer(a);
+	case student: Student(a, list); break;
+	case academicStaff: AcademicStaff(a, list); break;
+	case lecturer: Lecturer(a, list);
 	}
 }
 

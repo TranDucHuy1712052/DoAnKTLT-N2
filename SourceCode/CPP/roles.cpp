@@ -49,12 +49,12 @@ void showInfo(User a)
 	delete type;
 
 	if (strcmp(a.Class, "0")) printf("6. Lop: %s\n", a.Class);
-	printf("Nhan phim bat ky de quay lai.\n");
+	printf("Nhan ENTER de quay lai.\n");
 	
 	_getch();
 }
 
-void roles(User a)
+void roles(User a, UserList &list)
 {
 	while (1) {
 		rolesMenu(a);
@@ -63,9 +63,9 @@ void roles(User a)
 		int choice = selectionMove(begin, 1, 4, 1);
 
 		switch (choice) {
-		case 1: menu(a); break;
+		case 1: menu(a, list); break;
 		case 2: showInfo(a); break;
-		case 3: Password(a); break;
+		case 3: Password(a, list); break;
 		case 4: return;
 		}	
 	}

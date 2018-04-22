@@ -1,4 +1,5 @@
 #pragma once
 #include "menu.h"
+#include "structs.h"
 
-void Lecturer(User a);
+void Lecturer(User a, UserList &list);
