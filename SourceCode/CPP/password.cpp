@@ -50,35 +50,16 @@ int checkPassword(char oldPassword[], char newPassword[], char retype[], User a)
 	return 1;
 }
 
-void changePassword(User &a, char newPassword[])
+void changePassword(User &a, UserList &list, char newPassword[])
 {
-	char tmp[100];
-	User b;
-	FILE *f = fopen("users.csv", "r");
-	FILE *g = fopen("tmp.csv", "w");
-
-	fgets(tmp, 99, f);
-	fprintf(g, "%s", tmp);
-
-	int got;
-	while (1) {
-		got = fscanf(f, "%[^,],%[^,],%[^,],%[^,],%d,%[^,],%[^\n]\n", b.username, b.fullname, b.email, b.mobilephone, &b.type, b.password, b.Class);
-		if (got != 7) break;
-		if (strcmp(b.username, a.username))
-			fprintf(g, "%s,%s,%s,%s,%d,%s,%s\n", b.username, b.fullname, b.email, b.mobilephone, b.type, b.password, b.Class);
-		else
-			fprintf(g, "%s,%s,%s,%s,%d,%s,%s\n", b.username, b.fullname, b.email, b.mobilephone, b.type, newPassword, b.Class);
-	}
-
-	fclose(f);
-	fclose(g);
-
-	strcpy(a.password, newPassword);
-	remove("users.csv");
-	rename("tmp.csv", "users.csv");
+	for (int i = 0; i < list.size; i++)
+		if (!strcmp(a.username, list.user[i].username)) {
+			strcpy(list.user[i].password, newPassword);
+			break;
+		}
 }
 
-void Password(User &a)
+void Password(User &a, UserList &list)
 {
 	char oldPassword[50], newPassword[50], retype[50];
 	system("cls");
@@ -97,12 +78,13 @@ void Password(User &a)
 	int check = checkPassword(oldPassword, newPassword, retype, a);
 	switch (check) {
 	case 1:
-		changePassword(a, newPassword);
-		printf("Doi mat khau thanh cong\n");
+		changePassword(a, list, newPassword);
+		ReturnUsers(list);
+		printf("Doi mat khau thanh cong.\n");
 		break;
-	case ERROR_WRONG_OLD_PASSWORD: printf("Mat khau cu khong dung\n"); break;
-	case ERROR_WRONG_RETYPE: printf("Nhap lai mat khau moi khong dung\n"); break;
-	case ERROR_INVALID_CHARACTER: printf("Mat khau moi co ky tu khong hop le\n");
+	case ERROR_WRONG_OLD_PASSWORD: printf("Mat khau cu khong dung.\n"); break;
+	case ERROR_WRONG_RETYPE: printf("Nhap lai mat khau moi khong dung.\n"); break;
+	case ERROR_INVALID_CHARACTER: printf("Mat khau moi co ky tu khong hop le.\n");
 	}
 
 	while (getchar() != '\n');

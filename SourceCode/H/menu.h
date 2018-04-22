@@ -5,5 +5,5 @@
 #include "academicStaff.h"
 #include "lecturer.h"
 
-void menu(User a);
+void menu(User a, UserList &list);
 void tmpPrint();
