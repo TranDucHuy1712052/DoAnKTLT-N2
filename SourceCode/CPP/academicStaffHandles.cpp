@@ -123,8 +123,85 @@ void inputListofClasses(classes &list, vector <_class> &classes, ListOfstudentCo
 	}
 }
 
-//Ghi lại các file đã xóa
-void ReturnLists(classes list, vector <_class> classes, ListOfstudentCourses studentList, UserList users)
+//Ghi lại các file id.csv
+void ReturnIdFiles(vector <_class> classes, ListOfstudentCourses studentList, int i, int j)
+{
+	char *idFile = makeFileStudentName(classes[i].student[j].id);
+
+	FILE *h = fopen(idFile, "w");
+
+	fprintf(h, "course,class,year,semester,lecturer username,start at,end at,from,to,date of week\n");
+
+	for (int k = 0; k < studentList.student[classes[i].student[j].pos].size; k++)
+		fprintf(h, "%s,%s,%s,%d,%s,%d/%d/%d,%d/%d/%d,%d:%d,%d:%d,%s\n", studentList.student[classes[i].student[j].pos].course[k].course,
+			studentList.student[classes[i].student[j].pos].course[k].Class,
+			studentList.student[classes[i].student[j].pos].course[k].year,
+			studentList.student[classes[i].student[j].pos].course[k].semester,
+			studentList.student[classes[i].student[j].pos].course[k].lecturer,
+			studentList.student[classes[i].student[j].pos].course[k].start.d,
+			studentList.student[classes[i].student[j].pos].course[k].start.m,
+			studentList.student[classes[i].student[j].pos].course[k].start.y,
+			studentList.student[classes[i].student[j].pos].course[k].end.d,
+			studentList.student[classes[i].student[j].pos].course[k].end.m,
+			studentList.student[classes[i].student[j].pos].course[k].end.y,
+			studentList.student[classes[i].student[j].pos].course[k].from.h,
+			studentList.student[classes[i].student[j].pos].course[k].from.m,
+			studentList.student[classes[i].student[j].pos].course[k].to.h,
+			studentList.student[classes[i].student[j].pos].course[k].to.m,
+			studentList.student[classes[i].student[j].pos].course[k].dateOfWeek);
+
+	fclose(h);
+
+	delete[]idFile;
+}
+
+//Ghi lại các file class<name>.csv CÓ ghi lại IdFiles
+void ReturnClassFiles1(classes list, vector <_class> classes, ListOfstudentCourses studentList, int i)
+{
+	char *className = makeFileClassName(list.clas[i]);
+
+	FILE *g = fopen(className, "w");
+
+	fprintf(g, "id,full name,email,mobile phone\n%d\n", classes[i].sizeOfStudent);
+	for (int j = 0; j < classes[i].sizeOfStudent; j++) {
+		fprintf(g, "%s,%s,%s,%s\n", classes[i].student[j].id, classes[i].student[j].fullname, classes[i].student[j].email, classes[i].student[j].mobilephone);
+
+		//Ghi lại các file id.csv
+		ReturnIdFiles(classes, studentList, i, j);
+	}
+
+	fprintf(g, "list of courses\n");
+	for (int j = 0; j < classes[i].sizeOfCourses; j++)
+		fprintf(g, "%s\n", classes[i].ListOfCourses[j].courseName);
+
+	fclose(g);
+
+	delete[]className;
+}
+
+//Ghi lại các file class<name>.csv KHÔNG ghi lại IdFiles
+void ReturnClassFiles2(classes list, vector <_class> classes, ListOfstudentCourses studentList, int i)
+{
+	char *className = makeFileClassName(list.clas[i]);
+
+	FILE *g = fopen(className, "w");
+
+	fprintf(g, "id,full name,email,mobile phone\n%d\n", classes[i].sizeOfStudent);
+	for (int j = 0; j < classes[i].sizeOfStudent; j++) {
+		fprintf(g, "%s,%s,%s,%s\n", classes[i].student[j].id, classes[i].student[j].fullname, classes[i].student[j].email, classes[i].student[j].mobilephone);
+	}
+
+	fprintf(g, "list of courses\n");
+	for (int j = 0; j < classes[i].sizeOfCourses; j++)
+		fprintf(g, "%s\n", classes[i].ListOfCourses[j].courseName);
+
+	fclose(g);
+
+	delete[]className;
+}
+
+//Ghi lại các file cần sửa sau khi add students
+void ReturnListsOfAddingStudents(classes list, vector <_class> classes, ListOfstudentCourses studentList, UserList users)
 {
 	ReturnUsers(users);
 	//Ghi lại file classes.csv
@@ -136,49 +213,25 @@ void ReturnLists(classes list, vector <_class> classes, ListOfstudentCourses stu
 		fprintf(f, "%s\n", list.clas[i].className);
 
 		//Ghi lại các file class<name>.csv
-		char *className = makeFileClassName(list.clas[i]);
+		ReturnClassFiles1(list, classes, studentList, i);
+	}
 
-		FILE *g = fopen(className, "w");
+	fclose(f);
+}
 
-		fprintf(g, "id,full name,email,mobile phone\n%d\n", classes[i].sizeOfStudent);
-		for (int j = 0; j < classes[i].sizeOfStudent; j++) {
-			fprintf(g, "%s,%s,%s,%s\n", classes[i].student[j].id, classes[i].student[j].fullname, classes[i].student[j].email, classes[i].student[j].mobilephone);
+//Ghi lại các file cần sửa sau khi add class
+void ReturnListsOfAddingClass(classes list, vector <_class> classes, ListOfstudentCourses studentList, UserList users)
+{
+	//Ghi lại file classes.csv
+	FILE *f = fopen("classes.csv", "w");
 
-			//Ghi lại các file id.csv
-			char *idFile = makeFileStudentName(classes[i].student[j].id);
+	fprintf(f, "classname\n");
 
-			FILE *h = fopen(idFile, "w");
+	for (int i = 0; i < list.size; i++) {
+		fprintf(f, "%s\n", list.clas[i].className);
 
-			fprintf(h, "course,class,year,semester,lecturer username,start at,end at,from,to,date of week\n");
-
-			for (int k = 0; k < studentList.student[classes[i].student[j].pos].size; k++)
-				fprintf(h, "%s,%s,%s,%d,%s,%d/%d/%d,%d/%d/%d,%d:%d,%d:%d,%s\n", studentList.student[classes[i].student[j].pos].course[k].course,
-					studentList.student[classes[i].student[j].pos].course[k].Class,
-					studentList.student[classes[i].student[j].pos].course[k].year,
-					studentList.student[classes[i].student[j].pos].course[k].semester,
-					studentList.student[classes[i].student[j].pos].course[k].lecturer,
-					studentList.student[classes[i].student[j].pos].course[k].start.d,
-					studentList.student[classes[i].student[j].pos].course[k].start.m,
-					studentList.student[classes[i].student[j].pos].course[k].start.y,
-					studentList.student[classes[i].student[j].pos].course[k].end.d,
-					studentList.student[classes[i].student[j].pos].course[k].end.m,
-					studentList.student[classes[i].student[j].pos].course[k].end.y,
-					studentList.student[classes[i].student[j].pos].course[k].from.h,
-					studentList.student[classes[i].student[j].pos].course[k].from.m,
-					studentList.student[classes[i].student[j].pos].course[k].to.h,
-					studentList.student[classes[i].student[j].pos].course[k].to.m,
-					studentList.student[classes[i].student[j].pos].course[k].dateOfWeek);
-
-			fclose(h);
-		}
-
-		fprintf(g, "list of courses\n");
-		for (int j = 0; j < classes[i].sizeOfCourses; j++)
-			fprintf(g, "%s\n", classes[i].ListOfCourses[j].courseName);
-
-		fclose(g);
-
-		delete[]className;
+		//Ghi lại các file class<name>.csv
+		ReturnClassFiles2(list, classes, studentList, i);
 	}
 
 	fclose(f);
@@ -260,7 +313,7 @@ void addClass(classes &list, vector <_class> &classes, ListOfstudentCourses stud
 		list.clas.push_back(newClassName);
 		list.size++;
 
-		ReturnLists(list, classes, studentList, users);
+		ReturnListsOfAddingClass(list, classes, studentList, users);
 		printf("Done.\n");
 	}
 	
@@ -377,7 +430,7 @@ void importStudents(UserList &userList, ListOfstudentCourses &studentList, vecto
 			}
 
 			fclose(f);
-			ReturnLists(list, classess, studentList, userList);
+			ReturnListsOfAddingStudents(list, classess, studentList, userList);
 			printf("Done.\n");
 		}
 	}
