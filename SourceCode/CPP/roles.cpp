@@ -54,7 +54,7 @@ void showInfo(User a)
 	_getch();
 }
 
-void roles(User a, UserList &list)
+void roles(User a, UserList &list, studentCourses &coursesList)
 {
 	while (1) {
 		rolesMenu(a);
@@ -63,7 +63,7 @@ void roles(User a, UserList &list)
 		int choice = selectionMove(begin, 1, 4, 1);
 
 		switch (choice) {
-		case 1: menu(a, list); break;
+		case 1: menu(a, list, coursesList); break;
 		case 2: showInfo(a); break;
 		case 3: Password(a, list); break;
 		case 4: return;

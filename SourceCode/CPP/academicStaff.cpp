@@ -26,8 +26,9 @@ void students(UserList &userList)
 	//classes là mảng chứa từng lớp
 	vector <_class> classes;
 	//studentList là danh sách tất cả sinh viên, mấy file id.csv chứa courses
-	ListOfstudentCourses studentList;
+	ListOfstudentCoursesB studentList;
 
+	//nhập từ dữ liệu bên ngoài
 	inputListofClasses(list, classes, studentList);
 
 	while (1) {
@@ -65,19 +66,22 @@ void coursesMenu()
 	printf("6. Back\n");
 }
 
-void courses()
+void courses(studentCourses &list)
 {
+	//nhập dữ liệu từ bên ngoài
+	ReadCourses(list, "courses.csv");
+	//xử lí
 	while (1) {
 		coursesMenu();
 
 		coordinates begin = { 0,1 };
 		int choice = selectionMove(begin, 1, 6, 1);
 		switch (choice) {
-		case 1: tmpPrint(); break;
-		case 2: tmpPrint(); break;
-		case 3: tmpPrint(); break;
-		case 4: tmpPrint(); break;
-		case 5: tmpPrint(); break;
+		case 1: importCoursesFromCsv(list); break;
+		case 2: addNewCourse(list); break; //thêm 1 môn
+		case 3: editCourse(list); break; //sửa thông tin 1 môn 
+		case 4: removeCourse(list); break; //xóa 1 môn
+		case 5: viewListCourses(list); break; //xem thông tin các môn
 		case 6: return;
 		}
 	}
@@ -189,7 +193,7 @@ void academicStaffMenu()
 	printf("6. Back\n");
 }
 
-void AcademicStaff(User a, UserList &list)
+void AcademicStaff(User a, UserList &list, studentCourses &coursesList)
 {
 	while (1) {
 		academicStaffMenu();
@@ -198,7 +202,7 @@ void AcademicStaff(User a, UserList &list)
 		int choice = selectionMove(begin, 1, 6, 1);
 		switch (choice) {
 		case 1: students(list); break;
-		case 2: courses(); break;
+		case 2: courses(coursesList); break;
 		case 3: courseSchedule(); break;
 		case 4: attendanceList(); break;
 		case 5: scoreboard(); break;

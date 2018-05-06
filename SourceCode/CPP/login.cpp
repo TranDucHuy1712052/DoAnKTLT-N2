@@ -77,6 +77,6 @@ void ReturnUsers(UserList list)
 
 	for (int i = 0; i < list.size; i++)
 		fprintf(f, "%s,%s,%s,%s,%d,%s,%s\n", list.user[i].username, list.user[i].fullname, list.user[i].email, list.user[i].mobilephone, list.user[i].type, list.user[i].password, list.user[i].Class);
-
+	
 	fclose(f);
 }

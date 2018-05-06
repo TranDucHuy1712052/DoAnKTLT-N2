@@ -4,4 +4,4 @@
 #include "structs.h"
 #include  "academicStaffHandles.h"
 
-void AcademicStaff(User a, UserList &list);
+void AcademicStaff(User a, UserList &list, studentCourses &coursesList);

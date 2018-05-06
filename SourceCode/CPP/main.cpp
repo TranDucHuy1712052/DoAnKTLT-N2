@@ -12,20 +12,21 @@ int main()
 		system("cls");
 		User user;
 		UserList list;
+		studentCourses coursesList;
 
 		//Màn hình bắt đầu
 		if (begin() == FALSE) return 0;
 
 		//Đăng nhập
 		ReadUsers(list);
-		
+
 		while (1) {
 			if (login(user, list)) break;
 		}
 
 		//Lựa chọn các chức năng
 		while (1) {
-			roles(user, list);
+			roles(user, list, coursesList);
 			break;
 		}
 	}
